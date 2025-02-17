@@ -57,11 +57,11 @@ export const login = async (userData: any, remember: boolean) => {
 // Logout function - clears the session and redirects to login page
 export async function logout(token: string) {
   try {
-    // await api.post("logout", null, {
-    //   headers: {
-    //     Authorization: `Bearer ${token}`,
-    //   },
-    // });
+    await api.post("logout", null, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     console.log("Logout successful");
   } catch (error) {
     console.log("Logout error:", error);

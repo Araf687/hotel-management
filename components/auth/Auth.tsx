@@ -11,7 +11,7 @@ const Auth = () => {
   return (
     <div>
         {/* Render SignIn or Register component based on state */}
-        {isLoginPage ? <SIgnIn /> : <Register />}
+        {isLoginPage ? <SIgnIn /> : <Register setIsLoginPage={setIsLoginPage}/>}
 
         {/* Toggle between Login and Register */}
         <div className="mt-4 text-center">

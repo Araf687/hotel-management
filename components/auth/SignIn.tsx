@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useSessionData } from "@/context/SessionProvider";
 import { login } from "@/lib/auth";
 import { useState } from "react";
+import api from "@/config/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,19 +28,22 @@ export default function LoginPage() {
 
   const onSubmit = async (data: SignInFormData) => {
     console.log("Sign-in data:", data);
-    const { email, password } = data;
-    const userData = { email, id: 1, name: "Araf", token: "ashjahvsbjsybjyu" };
 
-    // Set session data first
-    setSessionUserData(userData); // Ensure session data is set first
+    try {
+      const res = await api.post("login", data);
+      const { user, token } = res.data;
+      const { name, email, id } = user;
+      const userData = { name, email, id, token };
 
-    // Then log the user in
-    await login(userData, true);
-    router.push("/dashboard");
-    // Add your sign-in logic here
+      setSessionUserData(userData);
+      await login(userData, true);
+      router.push("/dashboard");
+
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+    }
   };
-
- 
 
   return (
     <div className="w-full max-w-md space-y-6">
@@ -51,10 +55,10 @@ export default function LoginPage() {
             id="email"
             type="email"
             placeholder="Enter your email"
-            {...register("email")}
+            {...register("login")}
           />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
+          {errors.login && (
+            <p className="text-sm text-red-500">{errors.login.message}</p>
           )}
         </div>
         <div>

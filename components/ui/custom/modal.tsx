@@ -3,16 +3,29 @@ import {
   Dialog,
   DialogContent,
   DialogOverlay,
-  DialogTitle,
 } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useState } from "react";
 
 export function Modal({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const currentRoute = usePathname(); // Get the current route
+  const [isOpen, setIsOpen] = useState(true); // Track modal open state
+
+  const handleOpenChange = (open: boolean) => {
+    if (currentRoute !== "/auth") {
+      // Close the modal when the route is not "/auth"
+      setIsOpen(false); // This will close the modal
+    } else {
+      // Navigate back when route is "/auth"
+      if (!open) {
+        router.back();
+      }
+    }
+  };
 
   return (
-    <Dialog defaultOpen onOpenChange={() => router.back()}>
-      <DialogTitle></DialogTitle>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent>{children}</DialogContent>
     </Dialog>
   );

@@ -10,22 +10,18 @@ const EditProperty = ({ propertyId }: { propertyId: string }) => {
     name: property?.name ?? "",
     address: property?.address ?? "",
     image: property?.image ?? "",
-    avg_rating: property?.avg_rating ?? 0,
-    cost_per_night: property?.cost_per_night ?? 0,
+    average_rating: property?.average_rating ?? 0,
+    per_night_cost: property?.per_night_cost ?? 0,
     available_rooms: property?.available_rooms ?? 0,
     description: property?.description ?? "",
   };
 
-  // Handle form submission
-  const onSubmitProperty = (data: PropertyFormData) => {
-    // TODO add item deletion logic
-    return null;
-  };
+
 
   return (
     <div className="container mx-auto p-6">
       <h1 className="text-2xl font-semibold mb-6">Edit Property</h1>
-      <PropertyForm formData={initialValue} submitData={onSubmitProperty} />
+      <PropertyForm formData={initialValue} type="edit" />
     </div>
   );
 };

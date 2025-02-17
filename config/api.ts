@@ -6,10 +6,12 @@ import { ENV_VARIABLES } from "@/lib/constants";
 
 import axios, { AxiosInstance, InternalAxiosRequestConfig, AxiosError } from "axios";
 
+
+console.log(ENV_VARIABLES.AXIOS_BASE_URL)
 const api: AxiosInstance = axios.create({
   baseURL: ENV_VARIABLES.AXIOS_BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    "Content-Type": "multipart/form-data",
   },
 });
 
@@ -34,7 +36,7 @@ api.interceptors.response.use(
     console.log(response)
 
     // Show success toast for relevant methods
-    if (["post", "put", "delete"].includes(method?.toLowerCase() || "") && response.status === 200) {
+    if (["post", "put", "delete"].includes(method?.toLowerCase() || "") && response.status === 200 || response.status === 201) {
       toast({
         title: "Success",
         description: message || "Action completed successfully!",

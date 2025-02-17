@@ -9,7 +9,8 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 
 import { registerSchema, RegisterFormData } from "@/lib/schema";
-export default function Register() {
+import api from "@/config/api";
+export default function Register({setIsLoginPage}: {setIsLoginPage: (value: boolean) => void}) {
   const {
     register,
     handleSubmit,
@@ -20,8 +21,19 @@ export default function Register() {
 
   const onSubmit = (data: RegisterFormData) => {
     console.log("Register data:", data);
+
+    api.post("register", data).then((res) => {  
+      if(res.status === 201) {
+        console.log(res.data);
+        setIsLoginPage(true);
+      }
+        
+    }).catch((err) => {  console.log(err); });
+
     // Add your registration logic here
   };
+
+  console.log(errors);
 
   return (
     <div className="w-full max-w-md space-y-6">
@@ -37,6 +49,18 @@ export default function Register() {
           />
           {errors.name && (
             <p className="text-sm text-red-500">{errors.name.message}</p>
+          )}
+        </div>
+        <div>
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="username"
+            type="text"
+            placeholder="Enter username"
+            {...register("username")}
+          />
+          {errors.username && (
+            <p className="text-sm text-red-500">{errors.username.message}</p>
           )}
         </div>
         <div>
@@ -64,19 +88,19 @@ export default function Register() {
           )}
         </div>
         <div>
-          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Label htmlFor="password_confirmation">Confirm Password</Label>
           <Input
-            id="confirmPassword"
+            id="password_confirmation"
             type="password"
             placeholder="Confirm your password"
-            {...register("confirmPassword")}
+            {...register("password_confirmation")}
           />
-          {errors.confirmPassword && (
-            <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
+          {errors.password_confirmation && (
+            <p className="text-sm text-red-500">{errors.password_confirmation.message}</p>
           )}
         </div>
-        <Button className="w-full" type="submit">
-          Register
+        <Button className="w-full" type="submit" onClick={()=>console.log("Register")}>
+          Registeras
         </Button>
       </form>
     </div>

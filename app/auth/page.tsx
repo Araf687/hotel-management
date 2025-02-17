@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="border-rounded rounded-lg shadow w-[440px] p-8">
-        <Auth/>ss
+        <Auth/>
 
         {/* Divider with "or" */}
         <div className="relative flex items-center justify-center my-4">
