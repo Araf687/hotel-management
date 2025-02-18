@@ -1,3 +1,37 @@
+
+---
+
+### **README for Hotel Management Frontend (Next.js)**
+
+```markdown
+# Hotel Management System - Frontend (Next.js)
+
+## Overview
+
+This is the frontend for the Hotel Management System built using **Next.js**, **TypeScript**, **Tailwind CSS**, and **ShadCN UI**. It interacts with the backend API for user authentication and property management.
+
+## Features
+
+- **User Authentication**: Login and manage user sessions.
+- **Property Management**: View, create, update, and delete hotel properties.
+- **Responsive Design**: Mobile-friendly interface built with **Tailwind CSS**.
+- **UI Components**: ShadCN UI components for smooth user interactions.
+
+## Requirements
+
+- Node.js >= 16.x
+- npm or yarn
+- A running backend API (see the backend README for setup)
+
+## Installation
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/hotel-management-frontend.git
+cd hotel-management-frontend
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
