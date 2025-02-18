@@ -118,9 +118,9 @@ export default function PropertyCard({
             >
               <PenLine size={17} />
             </Link>
-            <Link href={`#`} className="hover:text-blue-600">
+            {/* <Link href={`#`} className="hover:text-blue-600">
               <Share2 size={17} />
-            </Link>
+            </Link> */}
           </div>
           <div>
             <Dialog>
