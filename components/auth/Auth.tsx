@@ -7,11 +7,12 @@ import { Button } from "../ui/button";
 
 const Auth = () => {
   const [isLoginPage, setIsLoginPage] = useState(true);
-
+  const [isLoginSuccess,setIsloginSuccess]=useState(false)
   return (
-    <div>
+   
+    isLoginSuccess?<> <div className="w-4xl flex h-[30vh] justify-center items-center">Logged in successfull!</div></>: <div>
         {/* Render SignIn or Register component based on state */}
-        {isLoginPage ? <SIgnIn /> : <Register setIsLoginPage={setIsLoginPage}/>}
+        {isLoginPage ? <SIgnIn setIsloginSuccess={setIsloginSuccess}/> : <Register setIsLoginPage={setIsLoginPage}/>}
 
         {/* Toggle between Login and Register */}
         <div className="mt-4 text-center">

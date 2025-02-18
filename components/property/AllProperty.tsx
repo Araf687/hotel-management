@@ -18,11 +18,11 @@ interface Property {
 
 const AllProperty = () => {
     
-    const { data:properties, error } = useSWR<Property[]>('properties');
+    const { data:properties, mutate,error } = useSWR<Property[]>('properties');
     console.log(properties);
     return ( <>
      {properties?.map((property, index) => (
-          <PropertyCard key={index} {...property} />
+          <PropertyCard key={index} {...property} mutate={mutate}/>
         ))}</> );
 }
  

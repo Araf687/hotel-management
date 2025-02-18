@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogContent,
   DialogOverlay,
+  DialogTitle,
 } from "@/components/ui/dialog";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
@@ -15,7 +16,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
   const handleOpenChange = (open: boolean) => {
     if (currentRoute !== "/auth") {
       // Close the modal when the route is not "/auth"
-      setIsOpen(false); // This will close the modal
+      setIsOpen(prev=>!prev); // This will close the modal
     } else {
       // Navigate back when route is "/auth"
       if (!open) {
@@ -26,6 +27,7 @@ export function Modal({ children }: { children: React.ReactNode }) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogTitle> </DialogTitle>
       <DialogContent>{children}</DialogContent>
     </Dialog>
   );

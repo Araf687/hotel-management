@@ -9,14 +9,14 @@ const Page = () => {
         <Auth/>
 
         {/* Divider with "or" */}
-        <div className="relative flex items-center justify-center my-4">
+        {/* <div className="relative flex items-center justify-center my-4">
           <div className="flex-grow border-t border-gray-300"></div>
           <span className="mx-4 text-sm text-gray-500">or</span>
           <div className="flex-grow border-t border-gray-300"></div>
-        </div>
+        </div> */}
 
         {/* Login with Google Button */}
-        <Button variant="outline" className="w-full p-1">
+        {/* <Button variant="outline" className="w-full p-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-5 w-5 mr-2"
@@ -41,7 +41,7 @@ const Page = () => {
             />
           </svg>
           Login with Google
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

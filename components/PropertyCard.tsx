@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import { PenLine, Share2, Star } from "lucide-react";
+import { PenLine, Share2, Star, Trash } from "lucide-react";
 import {
   Card,
   CardHeader,
@@ -11,6 +11,17 @@ import {
 import { Button } from "@/components/ui/button"; // Assuming you're using shadcn/ui for the button
 import Link from "next/link";
 import dummyImage from "@/assets/property/dummyPropertyImg.avif";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
+import api from "@/config/api";
 
 interface PropertyCardProps {
   id: number;
@@ -20,6 +31,8 @@ interface PropertyCardProps {
   available_rooms: number;
   image: string;
   average_rating: number;
+  image_url?:string;
+  mutate:()=>void;
 }
 
 export default function PropertyCard({
@@ -28,9 +41,21 @@ export default function PropertyCard({
   address,
   per_night_cost,
   available_rooms,
-  image,
+  image_url,
   average_rating,
+  mutate
 }: PropertyCardProps) {
+
+  const deleteProperty=(id:number)=>{
+    api.post(`properties/${id}`).then(res=>{
+      if(res.status===200){
+        console.log(res.data)
+        mutate();
+      }
+    }).catch(err=>{
+      console.log(err.response)
+    })
+  }
   return (
     <>
       {" "}
@@ -38,7 +63,7 @@ export default function PropertyCard({
         {/* Property Image */}
         <div className="relative h-48 w-full">
           <Image
-            src={image || dummyImage}
+            src={image_url || dummyImage}
             alt={name}
             fill
             className="object-cover"
@@ -85,7 +110,7 @@ export default function PropertyCard({
         </CardContent>
 
         {/* Book Now Button */}
-        <CardFooter className="p-4 pt-2 flex">
+        <CardFooter className="p-4 pt-2 flex justify-between">
           <div className="flex items-center gap-3">
             <Link
               href={`/dashboard/edit-property/${id}`}
@@ -96,6 +121,32 @@ export default function PropertyCard({
             <Link href={`#`} className="hover:text-blue-600">
               <Share2 size={17} />
             </Link>
+          </div>
+          <div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Trash className="cursor-pointer hover:tex-red-600"/>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Are you absolutely sure?</DialogTitle>
+                  <DialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                <Button onClick={() => deleteProperty(id)} variant="destructive">
+                  Delete User
+                </Button>
+                <DialogClose asChild>
+                  <Button type="button" variant="outline">
+                    Close
+                  </Button>
+                </DialogClose>
+              </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardFooter>
       </Card>

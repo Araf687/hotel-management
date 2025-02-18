@@ -11,12 +11,13 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useSessionData } from "@/context/SessionProvider";
 import { login } from "@/lib/auth";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import api from "@/config/api";
 
-export default function LoginPage() {
+export default function LoginPage({setIsloginSuccess}:{setIsloginSuccess: Dispatch<SetStateAction<boolean>>}) {
   const router = useRouter();
   const { setSessionUserData } = useSessionData();
+  
 
   const {
     register,
@@ -38,8 +39,8 @@ export default function LoginPage() {
       setSessionUserData(userData);
       await login(userData, true);
       router.push("/dashboard");
+      setIsloginSuccess(true)
 
-      console.log(res.data);
     } catch (err) {
       console.log(err);
     }
